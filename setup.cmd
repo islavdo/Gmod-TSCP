@@ -2,10 +2,10 @@
 @echo off
 
 
-if not exist "C:\Users\%USERNAME%\AppData\Local\Programs\Python" (
+if not exist "D:\Users\%USERNAME%\AppData\Local\Programs\Python" (
 start "" data\havenopython.vbs
-timeout 10
-start "" data\python_install.exe
+timeout 5
+explorer https://www.python.org/
 exit 
 )
 
