@@ -1,18 +1,9 @@
 import telebot, os, time, keyboard, speedtest
 from telebot import types
 
-keyboard.press("Win")
-keyboard.press("Shift")
-keyboard.press("Z")
-keyboard.release("Win")
-keyboard.release("Shift")
-keyboard.release("Z")
-
-
-
 
 bot = telebot.TeleBot('5253945013:AAF6yqBKUkKr2ENj0c8yBHfjujulEFglCnQ');
-startfile = open('start.bat', encoding='utf-8')
+
 
 
 
@@ -50,7 +41,7 @@ def welcome_start(message):
 @bot.message_handler(commands=['start_server'])
 def welcome_help(message):
     bot.send_message(message.chat.id, 'Сервер запускается, подождите...')
-    os.system("start.bat")
+    os.system("C:\Server_GMOD\steamapps\common\GarrysModDS\start.bat")
     time.sleep(2)
     keyboard.press("Win")
     keyboard.press("Shift")
@@ -75,7 +66,7 @@ def welcome_help(message):
     os.system("TASKKILL /F /IM srcds.exe")
     bot.send_message(message.chat.id, "Сервер выключен")
     time.sleep(10)
-    os.system("start.bat")
+    os.system("C:\Server_GMOD\steamapps\common\GarrysModDS\start.bat")
     time.sleep(3)
     bot.send_message(message.chat.id, "Сервер в процессе запуска...")
     time.sleep(15)
@@ -131,4 +122,4 @@ def welcome_help(message):
 
 
 
-bot.polling()  # запускаем бота
+bot.polling(none_stop=True)  # запускаем бота
