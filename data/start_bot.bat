@@ -1,2 +1,1 @@
-@echo Bot have been run!
-timeout 10
+start /min C:\Server_GMOD\steamapps\common\GMODTSCP\data\main.py
