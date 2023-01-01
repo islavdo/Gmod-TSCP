@@ -1,12 +1,14 @@
 import telebot, os, time, keyboard, speedtest
 from telebot import types
+from configparser import ConfigParser
+
+parser = ConfigParser()
+parser.read('mainsettings.ini')
+print(parser.get('Token', 'TelebotToken'))
+bottoken = parser.get('Token', 'TelebotToken')
 
 
-bot = telebot.TeleBot('5253945013:AAF6yqBKUkKr2ENj0c8yBHfjujulEFglCnQ');
-
-
-
-
+bot = telebot.TeleBot(bottoken)
 
 mainkeyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
 btn1 = types.KeyboardButton("/test")
