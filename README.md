@@ -33,9 +33,9 @@
 
 ###Required python packages
 
-`pip install pyTelegramBotAPI`
-`pip install keyboard`
-`pip install speedtest-cli`
+`pip install pyTelegramBotAPI`\n
+`pip install keyboard`\n
+`pip install speedtest-cli`\n
 `pip install Pillow`
 `pip install psutil`
 `pip install pyscreenshot`
