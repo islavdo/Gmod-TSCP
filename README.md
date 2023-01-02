@@ -31,6 +31,7 @@
 | Disable server  | /disableserv|
 | Reboot server  | /rebootserv|
 | CPU, RAM Indicators  | /sysindicators|
+| Take a screenshot  | /screenshot|
 
 
 ### Required python packages ###
