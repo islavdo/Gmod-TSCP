@@ -1,6 +1,7 @@
-import telebot, os, time, keyboard, speedtest
+import telebot, os, time, keyboard, speedtest, pyscreenshot, psutil
 from telebot import types
 from configparser import ConfigParser
+
 
 parser = ConfigParser()
 parser.read('mainsettings.ini')
@@ -20,14 +21,26 @@ btn6 = types.KeyboardButton("/reboot_pc")
 mainkeyboard.add(btn1, btn2, btn3, btn4,btn5,btn6)
 
 
-
-
-
 @bot.message_handler(commands=['test'])
 def welcome_start(message):
     tym = time.localtime()
     opt = time.strftime("%d/%m/%Y, %H:%M:%S",tym)
     bot.send_message(message.chat.id, 'Добро пожаловать! Телеграм бот запущен. \n\nДата и время опроса: ' + opt, reply_markup=mainkeyboard)
+
+
+@bot.message_handler(commands=['condition'])
+def welcome_start(message):
+    checkcpugpu = 1
+    messageid = bot.send_message(message.chat.id, 'Использование ЦП: {} %'.format(psutil.cpu_percent(1)))
+    while checkcpugpu == 1:
+        bot.edit_message_text(chat_id=message.chat.id, message_id=messageid.id,
+                              text='Использование ЦП: {} %'.format(psutil.cpu_percent(3)))
+
+
+@bot.message_handler(commands=['screenshot'])
+def screenshot(message):
+    screen = pyscreenshot.grab()
+    bot.send_photo(message.chat.id, screen)
 
 
 
@@ -60,7 +73,6 @@ def welcome_help(message):
 
 
 
-
 @bot.message_handler(commands=['reboot'])
 def welcome_help(message):
     bot.send_message(message.chat.id, 'Сервер перезапускается')
@@ -75,6 +87,10 @@ def welcome_help(message):
     bot.send_message(message.chat.id, "Сервер запущен")
 
 
+@bot.message_handler(commands=['update_bot'])
+def welcome_help(message):
+    pass
+
 @bot.message_handler(commands=['internet_speed'])
 def welcome_help(message):
     bot.send_message(message.chat.id, 'Подождите... \nПроводятся замеры скорости интернета')
@@ -85,19 +101,19 @@ def welcome_help(message):
     speeddownloadnormal = (speeddownload / 1024) / 1024
 
     if round(speeddownloadnormal,2) > 90:
-        bot.send_message(message.chat.id, 'Скорость загрузки идеальная' f'\nᅠ \n⬆️ Скорость загрузки {round(speeddownloadnormal,2)} Mb/s ⬇️\nᅠ ')
+        bot.send_message(message.chat.id, 'Скорость загрузки идеальная' f'\nᅠ \n⬇️ Скорость загрузки {round(speeddownloadnormal,2)} Mb/s ⬇️\nᅠ ')
     elif round(speeddownloadnormal,2) > 70:
-        bot.send_message(message.chat.id, 'Скорость загрузки отличная' f'\nᅠ \n⬆️ Скорость загрузки {round(speeddownloadnormal,2)} Mb/s ⬇️\nᅠ ')
+        bot.send_message(message.chat.id, 'Скорость загрузки отличная' f'\nᅠ \n⬇️ Скорость загрузки {round(speeddownloadnormal,2)} Mb/s ⬇️\nᅠ ')
     elif round(speeddownloadnormal, 2) > 50:
-        bot.send_message(message.chat.id, 'Скорость загрузки хорошая' f'\nᅠ \n⬆️ Скорость загрузки {round(speeddownloadnormal,2)} Mb/s ⬇️\nᅠ ')
+        bot.send_message(message.chat.id, 'Скорость загрузки хорошая' f'\nᅠ \n⬇️ Скорость загрузки {round(speeddownloadnormal,2)} Mb/s ⬇️\nᅠ ')
     elif round(speeddownloadnormal, 2) > 30:
-        bot.send_message(message.chat.id, 'Скорость загрузки нормальная' f'\nᅠ \n⬆️ Скорость загрузки {round(speeddownloadnormal,2)} Mb/s ⬇️\nᅠ ')
+        bot.send_message(message.chat.id, 'Скорость загрузки нормальная' f'\nᅠ \n⬇️ Скорость загрузки {round(speeddownloadnormal,2)} Mb/s ⬇️\nᅠ ')
     elif round(speeddownloadnormal, 2) > 20:
-        bot.send_message(message.chat.id, 'Скорость загрузки удавлетворительная' f'\nᅠ \n⬆️ Скорость загрузки {round(speeddownloadnormal,2)} Mb/s ⬇️\nᅠ ')
+        bot.send_message(message.chat.id, 'Скорость загрузки удавлетворительная' f'\nᅠ \n⬇️ Скорость загрузки {round(speeddownloadnormal,2)} Mb/s ⬇️\nᅠ ')
     elif round(speeddownloadnormal, 2) > 10:
-        bot.send_message(message.chat.id, 'Скорость загрузки не удавлетворительная' f'\nᅠ \n⬆️ Скорость загрузки {round(speeddownloadnormal,2)} Mb/s ⬇️\nᅠ ')
+        bot.send_message(message.chat.id, 'Скорость загрузки не удавлетворительная' f'\nᅠ \n⬇️ Скорость загрузки {round(speeddownloadnormal,2)} Mb/s ⬇️\nᅠ ')
     elif round(speeddownloadnormal, 2) > 5:
-        bot.send_message(message.chat.id, 'Возможность загрузки практически отсутствует' f'\nᅠ \n⬆️ Скорость загрузки {round(speeddownloadnormal,2)} Mb/s ⬇️\nᅠ ')
+        bot.send_message(message.chat.id, 'Возможность загрузки практически отсутствует' f'\nᅠ \n⬇️ Скорость загрузки {round(speeddownloadnormal,2)} Mb/s ⬇️\nᅠ ')
 
 
 
